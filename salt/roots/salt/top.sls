@@ -10,3 +10,6 @@ base:
 
     'openlava':
         - openlava
+
+    'slurm*':
+        - slurm

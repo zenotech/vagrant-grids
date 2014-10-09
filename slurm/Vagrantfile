@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby ts=2 sw=2 expandtab:
+
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  box = "ubuntu/trusty64"
+
+  config.vm.define :slurmmaster do |slurmmaster|
+    slurmmaster.vm.box = box
+    slurmmaster.vm.network "private_network", ip: "10.0.0.2"
+    slurmmaster.vm.hostname = "slurmmaster"
+      ## load the salt folder
+    slurmmaster.vm.synced_folder "../salt/roots/", "/srv/"
+    # provision
+    slurmmaster.vm.provision :salt do |salt|
+      salt.minion_config = "../salt/minion"
+      salt.run_highstate = true
+    end
+  end
+
+  config.vm.define :slurmnode do |slurmnode|
+    slurmnode.vm.box = box
+    slurmnode.vm.hostname = "slurmnode1"
+    slurmnode.vm.network "private_network", ip: "10.0.0.3"
+      ## load the salt folder
+    slurmnode.vm.synced_folder "../salt/roots/", "/srv/"
+    # provision
+    slurmnode.vm.provision :salt do |salt|
+      salt.minion_config = "../salt/minion"
+      salt.run_highstate = true
+    end
+  end
+  
+end
+
