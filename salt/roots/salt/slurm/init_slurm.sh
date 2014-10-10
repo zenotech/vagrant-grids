@@ -13,7 +13,7 @@ echo "10.0.0.3    slurmnode1" >> /etc/hosts
 /etc/init.d/munge start
 
 if [ "$HOSTNAME" = slurmmaster ]; then
-    /usr/sbin/slurmctld -D &
+    /usr/sbin/slurmctld
 else
     /etc/init.d/slurm-llnl start
 fi
