@@ -1,0 +1,11 @@
+{
+	"folders":
+	[
+		{
+			"path": "../vagrant-grids",
+			"folder_exclude_patterns": ["build"],
+			"file_exclude_patterns": []
+		}
+	],
+
+}
