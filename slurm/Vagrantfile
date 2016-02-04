@@ -12,6 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     slurmmaster.vm.hostname = "slurmmaster"
       ## load the salt folder
     slurmmaster.vm.synced_folder "../salt/roots/", "/srv/"
+    slurmmaster.vm.synced_folder "../../zenoSphere/", "/home/vagrant/epic"
     # provision
     slurmmaster.vm.provision :salt do |salt|
       salt.minion_config = "../salt/minion"
@@ -25,12 +26,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     slurmnode.vm.network "private_network", ip: "10.0.0.3"
       ## load the salt folder
     slurmnode.vm.synced_folder "../salt/roots/", "/srv/"
+    slurmnode.vm.synced_folder "../../zenoSphere/", "/home/vagrant/epic"
     # provision
     slurmnode.vm.provision :salt do |salt|
       salt.minion_config = "../salt/minion"
       salt.run_highstate = true
     end
   end
-  
+
 end
 
